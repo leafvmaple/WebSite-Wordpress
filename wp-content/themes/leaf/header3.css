@@ -1,0 +1,11 @@
+#header {
+	background:url(images/headers/ani3.jpg) no-repeat center;
+}
+
+#undertop {
+	background:#c8e2ef url(images/headers/ani3sub.jpg) no-repeat top;
+}
+
+#say3, #say2, #say {
+	margin:50px 0 0 140px;
+}
