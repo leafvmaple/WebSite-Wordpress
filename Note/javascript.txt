@@ -1,0 +1,28 @@
+var cars=new Array("Audi","BMW","Volvo"); 数组   lua: {}
+var person={firstname:"Bill", lastname:"Gates", id:5566}; 声明对象
+JavaScript 变量均为对象。
+如果您把值赋给尚未声明的变量，该变量将被自动作为全局变量声明。 lua也是，只是从var变成了local
+
+for in
+
+for (x in person)
+{
+    person[x];
+}
+
+
+lua:
+for i,v in pairs(person)
+{
+    person[i]
+}
+
+or
+
+for i,v in pairs(person)
+{
+    v
+}
+
+不能两次调用类似document.getElementById(this.subcontainers[i]).style.display的语句
+第二次调用会为null

@@ -115,7 +115,7 @@ function sm_init(){
 	global $wcc;
 	$lifetime = time();
 	$wcc = array(
-		'notice'=>'主人暂时还没有写公告呢，这是主人第一次使用伪春菜吧',
+		'notice'=>'欢迎来到零度枫影的听枫阁·观叶亭O(∩_∩)O',
 		'adminname'=>'',
 		'isnotice'=>'',
 		'ques'=>array('早上好', '中午好', '下午好', '晚上好', '晚安'),

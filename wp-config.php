@@ -1,80 +1,131 @@
 <?php
 /**
- * The base configurations of the WordPress.
+ * WordPress基础配置文件。
  *
- * This file has the following configurations: MySQL settings, Table Prefix,
- * Secret Keys, and ABSPATH. You can find more information by visiting
- * {@link http://codex.wordpress.org/Editing_wp-config.php Editing wp-config.php}
- * Codex page. You can get the MySQL settings from your web host.
+ * 本文件包含以下配置选项：MySQL设置、数据库表名前缀、密钥、
+ * WordPress语言设定以及ABSPATH。如需更多信息，请访问
+ * {@link http://codex.wordpress.org/zh-cn:%E7%BC%96%E8%BE%91_wp-config.php
+ * 编辑wp-config.php}Codex页面。MySQL设置具体信息请咨询您的空间提供商。
  *
- * This file is used by the wp-config.php creation script during the
- * installation. You don't have to use the web site, you can just copy this file
- * to "wp-config.php" and fill in the values.
+ * 这个文件被安装程序用于自动生成wp-config.php配置文件，
+ * 您可以手动复制这个文件，并重命名为“wp-config.php”，然后填入相关信息。
  *
  * @package WordPress
+ *
+ * @modified by Gimhoy (blog.gimhoy.com)
  */
 
-// ** MySQL settings - You can get this info from your web host ** //
-/** The name of the database for WordPress */
+// ** 文件上传设置, 可根据需要修改 ** //
+/** SAE Storage Domain名称 */
+define('SAE_STORAGE', 'wordpress');
+
+/** 文件上传路径 */ 
+define('SAE_DIR','/uploads');
+ 
+ 
+// ** MySQL 设置 - 已适配SAE,无需修改 ** //
+/** WordPress 数据库的名称 */
 define('DB_NAME', 'test');
 
-/** MySQL database username */
+/** MySQL 数据库用户名 */
 define('DB_USER', 'root');
 
-/** MySQL database password */
+/** MySQL 数据库密码 */
 define('DB_PASSWORD', 'usbw');
 
-/** MySQL hostname */
+/** MySQL 主机 */
 define('DB_HOST', 'localhost');
 
-/** Database Charset to use in creating database tables. */
+/** 创建数据表时默认的文字编码 */
 define('DB_CHARSET', 'utf8');
 
-/** The Database Collate type. Don't change this if in doubt. */
+/** 数据库整理类型。如不确定请勿更改 */
 define('DB_COLLATE', '');
 
+define('WP_USE_MULTIPLE_DB', true);
+
+$db_list = array(
+		'write'=> array(
+			array(
+				'db_host' => SAE_MYSQL_HOST_M.':'.SAE_MYSQL_PORT,
+				'db_user'=> SAE_MYSQL_USER,
+				'db_password'=> SAE_MYSQL_PASS,
+				'db_name'=> SAE_MYSQL_DB,
+				'db_charset'=> 'utf8'
+				)
+			),
+		'read'=> array(
+			array(
+				'db_host' => SAE_MYSQL_HOST_S.':'.SAE_MYSQL_PORT,
+				'db_user'=> SAE_MYSQL_USER,
+				'db_password'=> SAE_MYSQL_PASS,
+				'db_name'=> SAE_MYSQL_DB,
+				'db_charset'=> 'utf8'
+				)
+			),
+		);
+$global_db_list = $db_list['write'];
+
 /**#@+
- * Authentication Unique Keys and Salts.
+ * 身份认证密钥与盐。
  *
- * Change these to different unique phrases!
- * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
- * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ * 修改为任意独一无二的字串！
+ * 或者直接访问{@link https://api.wordpress.org/secret-key/1.1/salt/
+ * WordPress.org密钥生成服务}
+ * 任何修改都会导致所有cookies失效，所有用户将必须重新登录。
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'oQmbjf%r}OXte,z$VEb+ZEyGi|f)yGX<v+,rKvMB+3D9A(.2g^[smh<vAr?--THY');
-define('SECURE_AUTH_KEY',  '0b<)CyI:1Ic7W;ex_QLW+lEEj|p0tvqpBs{&a#3p@h^H/#>Jm%#Qe3l7bzHO{U(!');
-define('LOGGED_IN_KEY',    'Kvf[`!sG;LoGk:|v1up:&X2$qzE{&]hS.HA:Fz[5-&RwC1|(~enYs+QxZ[xC-Ii#');
-define('NONCE_KEY',        'V<q]GbMd-+&m`!d`*#3+0!RJ|&56y|_6N+]l4V[+4|_x?b>):5yc*NY9RZ7rSXnt');
-define('AUTH_SALT',        'mX71R_y/Z,C-FBtg%l>Iefq~l6SH{DsSO~a-lS= Y8J/-eg<p4dB)`.ZTgcF|G.V');
-define('SECURE_AUTH_SALT', 'i6>ye-ya|U}w51Y5.X-]aT2y?cwN9[TkOb/Ad|iMA49O5ZFe$r4q,X|yZ?ImX+;3');
-define('LOGGED_IN_SALT',   'n$Z3y2+Zn&d#qH+p2 cBPyxTOvsxY/{>(]g8p 9hZ/:NZ*r+[R$FD2CT7*u@OJ2|');
-define('NONCE_SALT',       '!d{0bvUN8/NXtq $+.ylR)wH-O3%T%ot)93BJ*TwMZ|Y[~@tMk*~/+rq6HxA}cm%');
+define('AUTH_KEY',         hash_hmac('sha1', SAE_ACCESSKEY . 'AUTH_KEY', SAE_SECRETKEY ));
+define('SECURE_AUTH_KEY',  hash_hmac('sha1', SAE_ACCESSKEY . 'SECURE_AUTH_KEY', SAE_SECRETKEY ));
+define('LOGGED_IN_KEY',    hash_hmac('sha1', SAE_ACCESSKEY . 'LOGGED_IN_KEY', SAE_SECRETKEY ));
+define('NONCE_KEY',        hash_hmac('sha1', SAE_ACCESSKEY . 'NONCE_KEY', SAE_SECRETKEY ));
+define('AUTH_SALT',        hash_hmac('sha1', SAE_ACCESSKEY . 'AUTH_SALT', SAE_SECRETKEY ));
+define('SECURE_AUTH_SALT', hash_hmac('sha1', SAE_ACCESSKEY . 'SECURE_AUTH_SALT', SAE_SECRETKEY ));
+define('LOGGED_IN_SALT',   hash_hmac('sha1', SAE_ACCESSKEY . 'LOGGED_IN_SALT', SAE_SECRETKEY ));
+define('NONCE_SALT',       hash_hmac('sha1', SAE_ACCESSKEY . 'NONCE_SALT', SAE_SECRETKEY ));
 
 /**#@-*/
 
 /**
- * WordPress Database Table prefix.
+ * WordPress数据表前缀。
  *
- * You can have multiple installations in one database if you give each a unique
- * prefix. Only numbers, letters, and underscores please!
+ * 如果您有在同一数据库内安装多个WordPress的需求，请为每个WordPress设置
+ * 不同的数据表前缀。前缀名只能为数字、字母加下划线。
  */
 $table_prefix  = 'wp_';
 
 /**
- * For developers: WordPress debugging mode.
+ * WordPress语言设置，中文版本默认为中文。
  *
- * Change this to true to enable the display of notices during development.
- * It is strongly recommended that plugin and theme developers use WP_DEBUG
- * in their development environments.
+ * 本项设定能够让WordPress显示您需要的语言。
+ * wp-content/languages内应放置同名的.mo语言文件。
+ * 例如，要使用WordPress简体中文界面，请在wp-content/languages
+ * 放入zh_CN.mo，并将WPLANG设为'zh_CN'。
+ */
+define('WPLANG', 'zh_CN');
+
+/**
+ * 开发者专用：WordPress调试模式。
+ *
+ * 将这个值改为true，WordPress将显示所有用于开发的提示。
+ * 强烈建议插件开发者在开发环境中启用WP_DEBUG。
  */
 define('WP_DEBUG', false);
 
-/* That's all, stop editing! Happy blogging. */
+/**
+ * zh_CN本地化设置：启用ICP备案号显示
+ *
+ * 可在设置→常规中修改。
+ * 如需禁用，请移除或注释掉本行。
+ */
+define('WP_ZH_CN_ICP_NUM', true);
 
-/** Absolute path to the WordPress directory. */
+/* 好了！请不要再继续编辑。请保存本文件。使用愉快！ */
+
+/** WordPress目录的绝对路径。 */
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
 
-/** Sets up WordPress vars and included files. */
+/** 设置WordPress变量和包含文件。 */
 require_once(ABSPATH . 'wp-settings.php');

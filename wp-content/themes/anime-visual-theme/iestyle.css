@@ -1,0 +1,44 @@
+* html div#wrapper {
+	background:url(images/pagebg.gif) repeat-y top;
+}
+
+* html div#clear_head {
+	line-height:5px;
+	height:5px;
+}
+
+* html div#top_extras img{
+	margin-bottom:10px;
+}
+* html div#undertop ul li a{
+	line-height:42px;
+}	
+* html div#contentarea {
+	width:786px;
+}
+* html div#sidebar ul ul li{
+	line-height:18px;
+}
+
+* html div#searchbar form {
+	margin-top:6px;
+}
+
+* html div#content .date {
+	background: url('images/date.gif') left center no-repeat;
+}
+* html div#content .cats {
+	background: url('images/note.gif') left center no-repeat;
+}
+* html div#content .commentslink {
+	background: url('images/comments.gif') left center no-repeat;
+}
+* html div#content .tags {
+	background: url('images/tag_blue.gif') left center no-repeat;
+}
+* html div.showthumb {
+	margin: 4px 2px 0 0;
+}
+
+* html img.postimage {
+}

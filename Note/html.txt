@@ -1,0 +1,12 @@
+get_option() 获得wordpress对应字段的数据，wordpress负责从数据库或超级全局变量中读取。
+ul 无序 HTML 列表
+a href="javascript:void(0)" 点击链接后不会回到网页顶部
+<a> 标签的 rel 属性用于指定当前文档与被链接文档的关系。
+<a> 标签的 href 属性用于指定超链接目标的 URL
+
+class 属性规定元素的类名（classname）。
+class 属性大多数时候用于指向样式表中的类（class）。
+
+<img> 标签向网页中嵌入一幅图像。有两个必需的属性：src 属性 和 alt 属性。
+<script> 标签用于定义客户端脚本，比如 JavaScript。script 元素既可以包含脚本语句，也可以通过 src 属性指向外部脚本文件。必需的 type 属性规定脚本的 MIME 类型。
+<meta> 标签位于文档的头部，不包含任何内容。<meta> 标签的属性定义了与文档相关联的名称/值对。
